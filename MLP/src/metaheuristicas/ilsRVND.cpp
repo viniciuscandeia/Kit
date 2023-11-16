@@ -7,10 +7,18 @@ void Solucao::ilsRVND(Problema *p, int maxIter, int maxIterILS)
 
     this->setValor(INFINITE);
 
+    // Criando dois objetos
     Solucao solucaoTemp;
     Solucao solucaoAtual;
 
+    // Gerando a solução inicial
     solucaoAtual.algoritmoGuloso(p);
+
+    // Limitando para não ficar demorando demais
+    if (maxIterILS >= 150)
+    {
+        maxIterILS /= 2;
+    }
 
     for (int i = 0; i < maxIter; i++)
     {
@@ -22,7 +30,10 @@ void Solucao::ilsRVND(Problema *p, int maxIter, int maxIterILS)
             // Trabalhando em cima de uma cópia
             solucaoTemp = solucaoAtual;
 
-            perturbacao = rand() % (QUANT_PERTURBACOES + 1);
+            // Fazendo sorteio para decidir qual a perturbação que será usada
+            perturbacao = rand() % (QUANT_PERTURBACOES);
+
+            // Aplicando a perturbação sorteada
             switch (perturbacao)
             {
             case 0:
@@ -54,8 +65,10 @@ void Solucao::ilsRVND(Problema *p, int maxIter, int maxIterILS)
                 break;
             }
 
+            // Aplicando o RVND
             solucaoTemp.rvnd(p);
 
+            // Se o valor da solução melhorou
             if (solucaoTemp.getValor() < solucaoAtual.getValor())
             {
                 // Resetando a quantidade de iterações necessárias para encerrar o loop
@@ -65,9 +78,11 @@ void Solucao::ilsRVND(Problema *p, int maxIter, int maxIterILS)
                 solucaoAtual = solucaoTemp;
             }
 
+            // Independente se melhorou ou não
             quantidadeIteracoes += 1;
         }
 
+        // Se a solução encontrada é melhor que a do objeto
         if (solucaoAtual.getValor() < this->getValor())
         {
            *this = solucaoAtual;

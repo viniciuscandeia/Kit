@@ -58,6 +58,7 @@ void Solucao::algoritmoGuloso(Problema *p)
         frequencia[adicionarNaRota] = 1;
     }
 
+    // Atualizando a rota e o valor da solução
     this->setSequencia(rota);
     this->calcularValor(p);
 }

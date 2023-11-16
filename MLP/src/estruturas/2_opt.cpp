@@ -5,6 +5,7 @@
 bool Solucao::bestImprovement2Opt(Problema *p)
 {
 
+    // Variáveis utilizadas ao longo do akgoritmo
     int bestDelta = 0;
     int bestI = 0;
     int bestJ = 0;
@@ -16,8 +17,8 @@ bool Solucao::bestImprovement2Opt(Problema *p)
     int antesSegundo = 0;
 
     // * Informaces sobre a solucao
-    int tamanho = this->getSequencia().size();
     vector<int> &sequencia = this->getSequencia();
+    int tamanho = sequencia.size();
 
     // * Informacoes sobre o problema
     vector<vector<int>> &v = p->getMatrizValores();
@@ -44,6 +45,7 @@ bool Solucao::bestImprovement2Opt(Problema *p)
             delta -= v[primeiro][depoisPrimeiro];
             delta -= v[antesSegundo][segundo];
 
+            // Realizando alguns cálculos para evitar retrabalho dentro do for
             int quantidadeTrocas = j - i - 2;
 
             int preCalculo1 = i + 1;
@@ -73,6 +75,7 @@ bool Solucao::bestImprovement2Opt(Problema *p)
 
     }
 
+    // Se encontrou a tal situação
     if (bestDelta < 0)
     {
         // Atualizando o valor da solução
@@ -92,11 +95,16 @@ void inverterSegmento(vector<int> &sequencia, int i, int j)
 
     int quantidadeTrocas = ((j - i) / 2);
 
+    // Realizando alguns cálculos para evitar retrabalho dentro do for
+    int preCalculo1 = i + 1;
+    int preCalculo2 = j - 1;
+
+    // Algoritmo semelhante ao swap
     for (int k = 0; k < quantidadeTrocas; k++)
     {
-        int aux = sequencia[i + 1 + k];
-        sequencia[i + 1 + k] = sequencia[j - 1 - k];
-        sequencia[j - 1 - k] = aux;
+        int aux = sequencia[preCalculo1 + k];
+        sequencia[preCalculo1 + k] = sequencia[preCalculo2 - k];
+        sequencia[preCalculo2 - k] = aux;
     }
 
 }

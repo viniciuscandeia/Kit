@@ -10,9 +10,11 @@ void Solucao::perturbacaoReinsertion(Problema *p, int bloco)
     // * Informacoes sobre o problema
     vector<vector<int>> &v = p->getMatrizValores();
 
+    // Sorteando as posições do bloco e onde ele entrará
     int posicaoBloco = rand() % (tamanho - bloco);
     int posicaoEntrada = rand() % (tamanho + 1);
 
+    // Garantindo que a posição de entrada do bloco não seja entre as posições dos elementos do bloco
     while (posicaoEntrada >= posicaoBloco && posicaoEntrada <= posicaoBloco + bloco)
     {
         posicaoEntrada = rand() % (tamanho + 1);

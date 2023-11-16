@@ -36,8 +36,9 @@ void Solucao::setSequencia(vector<int> &novaSequencia)
     sequenciaDaSolucao = novaSequencia;
 }
 
-// * Metodos
+// * Métodos
 
+// Para mostrar a rota
 void Solucao::mostrarSequencia()
 {
     for (unsigned i = 0; i < sequenciaDaSolucao.size(); i++)
@@ -47,6 +48,7 @@ void Solucao::mostrarSequencia()
     cout << endl;
 }
 
+// Calcular o valor da rota
 void Solucao::calcularValor(Problema *p)
 {
     int valor = 0;
@@ -62,12 +64,14 @@ void Solucao::calcularValor(Problema *p)
     valorDaSolucao = valor;
 }
 
+// Resetando as informações do objeto
 void Solucao::limparSolucao()
 {
     valorDaSolucao = 0;
     sequenciaDaSolucao = {};
 }
 
+// Verificando se cada estrutura de vizinhança desenvolvida está correta
 void testesIndividuais(Problema *p)
 {
     Solucao *t = new Solucao();
@@ -193,6 +197,7 @@ void testesIndividuais(Problema *p)
     cout << endl;
 }
 
+// Verificando se cada busca local desenvolvida está correta
 void testesBuscasLocais(Problema *p)
 {
 
@@ -228,6 +233,7 @@ void testesBuscasLocais(Problema *p)
     cout << endl;
 }
 
+// Verificando se cada perturbação desenvolvida está correta
 void testesPerturbacoes(Problema *p)
 {
 
@@ -310,6 +316,7 @@ void testesPerturbacoes(Problema *p)
     cout << endl;
 }
 
+// Verificando se cada metaheurística desenvolvida está correta
 void testesMetaheuristicas(Problema *p)
 {
 
@@ -345,6 +352,7 @@ void testesMetaheuristicas(Problema *p)
     cout << endl;
 }
 
+// Indicação visual para o resultado dos testes
 void validarValores(int encontrado, int certo)
 {
     if (encontrado == certo)
@@ -359,6 +367,8 @@ void validarValores(int encontrado, int certo)
     }
 }
 
+// Aplicando VND, RNVD, ILS VND e ILS RVND para a instância passada
+// Gerando um arquivo com o nome da instância com os resultados
 void criarArquivo(string nomeArquivo)
 {
 
@@ -494,6 +504,8 @@ void criarArquivo(string nomeArquivo)
     arquivo.close();
 }
 
+// Pegando os nomes das instâncias e aplicando nelas as heurísticas
+// Uso de threads para acelerar
 void gerenciarProducaoArquivos()
 {
 
@@ -563,6 +575,7 @@ void gerenciarProducaoArquivos()
     }
 }
 
+// Compilando os resultados obtidos em um único arquivo
 void criarResultados()
 {
     // | Para os resultados

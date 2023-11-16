@@ -1,5 +1,7 @@
 #include "problema.hpp"
 
+// Construtor da classe
+// Define a matriz que será utilizada
 Problema::Problema(Data *data)
 {
     quantidadeDePontos = data->getDimension();
@@ -24,6 +26,7 @@ Problema::~Problema()
 {
 }
 
+// Getters
 int Problema::getQuantidadePontos()
 {
     return quantidadeDePontos;
@@ -34,6 +37,7 @@ vector<vector<int>> &Problema::getMatrizValores()
     return matrizValores;
 }
 
+// Para mostrar a matriz
 void Problema::mostrarMatriz()
 {
 
