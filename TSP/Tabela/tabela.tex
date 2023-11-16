@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage[margin=1in]{geometry}
+\usepackage{changepage}  % Importe o pacote 'changepage'
+\usepackage{booktabs}  % Importe o pacote booktabs
+\usepackage{float} % Para usar a opção [H]
+
+\title{\Large \textbf{Tabela: Tempo e custo médios obtidos para cada instância.}} % Use \textbf{} para tornar o título em negrito
+\author{\textbf{Vinicius Candeia Pereira Vieira}} % Use \textbf{} para tornar o autor em negrito
+
+\begin{document}
+\maketitle
+
+\begin{table}[H]
+\centering
+
+\begin{tabular}{>{\bfseries}llll>{\bfseries}llll}
+
+\toprule
+\multirow{2}{*}{Instância} & \multicolumn{3}{c}{\textbf{Resultados}} & \multirow{2}{*}{Instância} & \multicolumn{3}{c}{\textbf{Resultados}} \\
+\cmidrule(lr){2-4} \cmidrule(lr){6-8} 
+& \textbf{Tempo (s)} & \textbf{Custo} & \textbf{GAP (\%)} & & \textbf{Tempo (s)} & \textbf{Custo} & \textbf{GAP (\%)} \\
+
+\midrule
+a280 & 160.371 & 2554 & -0.969 & kroA150 & 22.855 & 25791 & -2.764 \\
+ali535 & 853.560 & 197595 & -2.366 & kroA200 & 55.505 & 28684 & -2.329 \\
+att48 & 0.938 & 9761 & -8.158 & kroB100 & 7.050 & 20912 & -5.551 \\
+att532 & 1715.780 & 27378 & -1.273 & kroB150 & 14.203 & 25148 & -3.758 \\
+bayg29 & 0.227 & 1460 & -9.317 & kroB200 & 32.761 & 28845 & -2.012 \\
+bays29 & 0.213 & 1804 & -10.693 & kroC100 & 4.613 & 19886 & -4.159 \\
+berlin52 & 0.927 & 7141 & -5.317 & kroD100 & 4.605 & 20460 & -3.917 \\
+bier127 & 11.329 & 109718 & -7.240 & kroE100 & 6.659 & 21286 & -3.544 \\
+brazil58 & 1.383 & 19871 & -21.752 & lin105 & 7.338 & 13692 & -4.778 \\
+brg180 & 37.388 & 1920 & -1.538 & lin318 & 127.824 & 41235 & -1.928 \\
+burma14 & 0.000 & 2615 & -21.306 & linhp318 & 134.413 & 41235 & -1.945 \\
+ch130 & 13.991 & 5903 & -3.388 & pcb442 & 387.194 & 50157 & -1.413 \\
+ch150 & 22.500 & 6392 & -2.083 & pr107 & 9.374 & 37133 & -16.184 \\
+d198 & 60.593 & 12754 & -19.176 & pr124 & 11.971 & 55241 & -6.419 \\
+d493 & 1268.610 & 32890 & -6.141 & pr136 & 19.121 & 93330 & -3.557 \\
+dantzig42 & 0.617 & 641 & -8.298 & pr144 & 20.546 & 53920 & -7.887 \\
+eil101 & 6.609 & 614 & -2.385 & pr152 & 23.870 & 63138 & -14.310 \\
+eil51 & 1.023 & 403 & -6.061 & pr226 & 68.600 & 74254 & -7.609 \\
+eil76 & 1.903 & 521 & -3.160 & pr264 & 180.001 & 43677 & -11.108 \\
+fl417 & 620.662 & 11056 & -6.787 & pr299 & 201.331 & 47054 & -2.367 \\
+fri26 & 0.174 & 799 & -14.728 & pr76 & 2.848 & 97584 & -9.777 \\
+gil262 & 70.132 & 2348 & -1.291 & rat195 & 26.604 & 2255 & -3.057 \\
+gr120 & 7.224 & 6593 & -5.027 & rat99 & 7.264 & 1190 & -1.734 \\
+gr137 & 17.484 & 66286 & -5.106 & rd100 & 6.667 & 7614 & -3.742 \\
+gr17 & 0.069 & 1564 & -24.988 & rd400 & 308.659 & 15176 & -0.785 \\
+gr202 & 56.572 & 36382 & -9.408 & si175 & 31.750 & 21135 & -1.271 \\
+gr21 & 0.106 & 2313 & -14.555 & si535 & 1346.570 & 48153 & -0.647 \\
+gr229 & 48.173 & 128822 & -4.302 & st70 & 2.368 & 631 & -6.519 \\
+gr24 & 0.150 & 1157 & -9.041 & swiss42 & 0.582 & 1162 & -8.720 \\
+gr431 & 410.097 & 166502 & -2.931 & ts225 & 0.085 & 123401 & -2.560 \\
+gr48 & 0.876 & 4609 & -8.660 & tsp225 & 41.497 & 3789 & -3.243 \\
+gr96 & 5.929 & 51678 & -6.396 & u159 & 15.698 & 40761 & -3.135 \\
+hk48 & 0.923 & 10649 & -7.085 & ulysses16 & 0.000 & 4852 & -29.261 \\
+kroA100 & 4.514 & 20405 & -4.121 & ulysses22 & 0.000 & 5074 & -27.649 \\
+\bottomrule
+\end{tabular}
+
+\end{table}
+\end{document}
