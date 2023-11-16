@@ -4,6 +4,8 @@
 // Código adaptado para realizar o OR-OPT-2 e o OR-OPT-3
 bool Solucao::bestImprovementReinsertion(Problema *p, int bloco)
 {
+
+    // Variáveis utilizadas ao longo do algoritmo
     int bestDelta = 0;
     int bestI = 0;
     int bestJ = 0;
@@ -41,6 +43,34 @@ bool Solucao::bestImprovementReinsertion(Problema *p, int bloco)
 
         depoisBloco = sequencia[i + bloco];
 
+        int deltaBloco = 0;
+
+        // # Se i estiver no coneço,
+        // # Então, ele SÓ terá um vértice depois dele
+        if (i == 0)
+        {
+            deltaBloco -= v[fimBloco][depoisBloco];
+        }
+
+        // # Se i estiver no fim,
+        // # Então, ele SÓ terá um vértice antes dele
+        if (i == tamanho - bloco)
+        {
+            int antesBloco = sequencia[i - 1];
+            deltaBloco -= v[antesBloco][inicioBloco];
+        }
+
+        // # Se i não estiver no começo,
+        // # Se i não estiver no fim,
+        // # Então, ele terá um vértice antes e depois dele
+        if (i != 0 && i != tamanho - bloco)
+        {
+            int antesBloco = sequencia[i - 1];
+            deltaBloco -= v[antesBloco][inicioBloco];
+            deltaBloco -= v[fimBloco][depoisBloco];
+            deltaBloco += v[antesBloco][depoisBloco];
+        }
+
         // | Para j
         for (int j = 0; j <= tamanho; j++)
         {
@@ -66,33 +96,7 @@ bool Solucao::bestImprovementReinsertion(Problema *p, int bloco)
                 entrada = sequencia[j];
             }
 
-            int delta = 0;
-
-            // # Se i estiver no coneço,
-            // # Então, ele SÓ terá um vértice depois dele
-            if (i == 0)
-            {
-                delta -= v[fimBloco][depoisBloco];
-            }
-
-            // # Se i estiver no fim,
-            // # Então, ele SÓ terá um vértice antes dele
-            if (i == tamanho - bloco)
-            {
-                int antesBloco = sequencia[i - 1];
-                delta -= v[antesBloco][inicioBloco];
-            }
-
-            // # Se i não estiver no começo,
-            // # Se i não estiver no fim,
-            // # Então, ele terá um vértice antes e depois dele
-            if (i != 0 && i != tamanho - bloco)
-            {
-                int antesBloco = sequencia[i - 1];
-                delta -= v[antesBloco][inicioBloco];
-                delta -= v[fimBloco][depoisBloco];
-                delta += v[antesBloco][depoisBloco];
-            }
+            int delta = deltaBloco;
 
             // & Se j não estiver no começo,
             // & Então, a inserção será antes dele

@@ -13,7 +13,7 @@ void Solucao::perturbacaoSwap(Problema *p, int blocoUm, int blocoDois)
     int limiteJ = tamanho + 1 - blocoDois;
     int limiteI = limiteJ - blocoUm;
 
-    // Sorteando quais blocos serão trocados
+    // Sorteando quais as posições dos blocos que serão trocados
     int posicaoBlocoUm = rand() % (limiteI);
     int posicaoBlocoDois = (rand() % (limiteJ - posicaoBlocoUm - blocoUm)) + posicaoBlocoUm + blocoUm;
 

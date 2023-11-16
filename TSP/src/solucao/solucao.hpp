@@ -10,7 +10,8 @@
 #include <mutex>
 #include <queue>
 
-#define QUANT_PERTURBACOES 8
+#define QUANT_PERTURBACOES 9
+#define QUANT_ESTRUTURAS 10
 #define INFINITE 9999999
 
 using namespace std;

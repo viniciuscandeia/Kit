@@ -129,6 +129,8 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
 void swap(vector<int> &sequencia, int i, int j, int blocoUm, int blocoDois)
 {
 
+    // Motivo de usar dois for: o tamanho dos blocos podem ser diferentes
+
     // Movendo os elementos do blocoDois
     for (int k = 0; k < blocoDois; k++)
     {
