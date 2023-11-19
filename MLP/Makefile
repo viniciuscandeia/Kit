@@ -17,7 +17,7 @@ BUILD_DIR = build
 BIN_DIR = bin
 
 # Lista de pastas contendo arquivos-fonte
-SOURCE_DIRS = buscasLocais data estruturas guloso metaheuristicas perturbacoes problema solucao
+SOURCE_DIRS = buscasLocais data estruturas guloso metaheuristicas perturbacoes problema solucao subsequencia
 
 # Lista de arquivos-fonte em cada pasta
 SOURCES = $(foreach dir,$(SOURCE_DIRS),$(wildcard $(SRC_DIR)/$(dir)/*.cpp)) $(SRC_DIR)/main.cpp

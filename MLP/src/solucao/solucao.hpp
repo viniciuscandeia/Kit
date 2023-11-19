@@ -55,6 +55,7 @@ public:
     // Metodos
     void mostrarSequencia();
     void calcularValor(Problema *p);
+    void calcularCusto(Problema *p);
     void limparSolucao();
 
     // Algoritmo Guloso

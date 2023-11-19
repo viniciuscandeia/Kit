@@ -37,6 +37,17 @@ vector<vector<int>> &Problema::getMatrizValores()
     return matrizValores;
 }
 
+// Setters
+void Problema::setQuantidadePontos(int valor)
+{
+    quantidadeDePontos = valor;
+}
+
+void Problema::setMatrizValores(vector<vector<int>> &matriz)
+{
+    matrizValores = matriz;
+}
+
 // Para mostrar a matriz
 void Problema::mostrarMatriz()
 {
@@ -50,4 +61,10 @@ void Problema::mostrarMatriz()
         cout << endl;
     }
     cout << endl;
+}
+
+void Problema::limparProblema()
+{
+    quantidadeDePontos = 0;
+    matrizValores = {};
 }

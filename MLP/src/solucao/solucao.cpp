@@ -53,8 +53,8 @@ void Solucao::calcularValor(Problema *p)
 {
     int valor = 0;
 
-    int tamanho = sequenciaDaSolucao.size();
     vector<int> &rota = this->getSequencia();
+    int tamanho = rota.size();
 
     for (int i = 0; i < tamanho - 1; i++)
     {
@@ -62,6 +62,30 @@ void Solucao::calcularValor(Problema *p)
     }
 
     valorDaSolucao = valor;
+}
+
+// Calcular o valor da rota
+void Solucao::calcularCusto(Problema *p)
+{
+    int valor = 0;
+
+    vector<int> &rota = this->getSequencia();
+    int tamanho = rota.size();
+
+    vector<vector<int>> m = p->getMatrizValores();
+
+    for (int i = 1; i < tamanho; i++)
+    {
+        for (int j = 0; j <= i; j++)
+        {
+            if (j != i)
+            {
+                valor += m[rota[j]][rota[j + 1]];
+            }
+        }
+    }
+
+    cout << valor << endl;
 }
 
 // Resetando as informações do objeto
@@ -549,7 +573,7 @@ void gerenciarProducaoArquivos()
                 if (arquivoQueue.empty())
                 {
                     // Fila vazia, sair do loop
-                    break; 
+                    break;
                 }
 
                 // Pega o arquivo que está na frente da fila

@@ -9,16 +9,16 @@ int main()
 
 	// Criando o objeto da instância
 	// Data data = Data(argc, argv[1]);
-	// Data *data = new Data(2, "instances/gr137.tsp");
-	// data->read();
+	Data *data = new Data(2, "instances/gr17.tsp");
+	data->read();
 
 	// Criando o objeto do Problema
-	// Problema *p = new Problema(data);
+	Problema *p = new Problema(data);
 	// p->mostrarMatriz();
 
 	// Criando o objeto da Solucao
-	// Solucao *s = new Solucao();
-	// s->algoritmoGuloso(p);
+	Solucao *s = new Solucao();
+	s->algoritmoGuloso(p);
 
 	// | Etapa 2
 
@@ -29,16 +29,16 @@ int main()
 
 	// | Etapa 3
 
-	// !
-	auto inicio = steady_clock::now();
+	// // !
+	// auto inicio = steady_clock::now();
 
-	gerenciarProducaoArquivos();
-	criarResultados();
+	// gerenciarProducaoArquivos();
+	// criarResultados();
 
-	// !
-	auto fim = steady_clock::now();
-	auto duracao = duration_cast<microseconds>(fim - inicio);
-	cout << "Tempo executado: " << duracao.count() << endl;
+	// // !
+	// auto fim = steady_clock::now();
+	// auto duracao = duration_cast<microseconds>(fim - inicio);
+	// cout << "Tempo executado: " << duracao.count() << endl;
 
 	return 0;
 }

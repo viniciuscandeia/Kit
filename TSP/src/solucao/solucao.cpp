@@ -92,6 +92,8 @@ void testesIndividuais(Problema *p)
     valorCorreto = t->getValor();
     validarValores(valorEncontrado, valorCorreto);
 
+    t->mostrarSequencia();
+
     t->limparSolucao();
     t->algoritmoGuloso(p);
 

@@ -14,9 +14,11 @@ void Solucao::algoritmoGuloso(Problema *p)
     // Criando um vetor de frequência dos pontos
     vector<int> frequencia(quantidadePontos, 0);
 
-    // Adiciona na rota o produto 0
+    // Adiciona na rota o ponto 0
     rota.push_back(0);
     frequencia[0] = 1;
+
+    int custoRota = 0;
 
     // Loop com a quantidade de pontos
     for (int i = 1; i < quantidadePontos; i++)
@@ -56,9 +58,12 @@ void Solucao::algoritmoGuloso(Problema *p)
 
         // Considerando aquele ponto já utilizado
         frequencia[adicionarNaRota] = 1;
+
+        // Somando o valor daquele ponto na rota
+        custoRota += bestDelta;
     }
 
     // Atualizando a rota e o valor da solução
     this->setSequencia(rota);
-    this->calcularValor(p);
+    this->setValor(custoRota);
 }
