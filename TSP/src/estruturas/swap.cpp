@@ -9,12 +9,14 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
     int bestJ = 0;
 
     int inicioBlocoUm = 0;
+    int antesBlocoUm = 0;
     int fimBlocoUm = 0;
     int depoisBlocoUm = 0;
 
     int inicioBlocoDois = 0;
-    int fimBlocoDois = 0;
     int antesBlocoDois = 0;
+    int fimBlocoDois = 0;
+    int depoisBlocoDois = 0;
 
     // * Informaces sobre a solucao
     vector<int> &sequencia = this->getSequencia();
@@ -24,57 +26,43 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
     vector<vector<int>> &v = p->getMatrizValores();
 
     // Limite dos fors
-
-    // Se bloco 1 -> limiteJ = tamanho
-    // Se bloco 2 -> limiteJ = tamanho - 1
-    // Se bloco 3 -> limiteJ = tamanho - 2
-
-    int limiteJ = tamanho + 1 - blocoDois;
-
-    // Se bloco 1 -> limiteI = tamanho - 1
-    // Se bloco 2 -> limiteI = tamanho - 3
-    // Se bloco 3 -> limiteI = tamanho - 5
-
+    int limiteJ = tamanho - blocoDois;
     int limiteI = limiteJ - blocoUm;
 
     // | Para i
-    for (int i = 0; i < limiteI; i++)
+    for (int i = 1; i < limiteI; i++)
     {
 
+        antesBlocoUm = sequencia[i - 1];
         inicioBlocoUm = sequencia[i];
-
-        // Se bloco = 1 -> fimBloco = inicioBloco
-        // Se bloco = 2 -> fimBloco = inicioBloco + 1
-        // Se bloco = 3 -> fimBloco = inicioBloco + 2
-
         fimBlocoUm = sequencia[i + blocoUm - 1];
-
-        // Se bloco = 1 -> depoisBloco = inicioBloco + 1
-        // Se bloco = 2 -> depoisBloco = inicioBloco + 2
-        // Se bloco = 3 -> depoisBloco = inicioBloco + 3
-
         depoisBlocoUm = sequencia[i + blocoUm];
+
+        int deltaBloco = 0;
+
+        // Independente da situação, sempre ocorrerá isso
+        deltaBloco -= v[fimBlocoUm][depoisBlocoUm];
+
+        // i terá um vértice antes dele
+        deltaBloco -= v[antesBlocoUm][inicioBlocoUm];
 
         // | Para j
         for (int j = i + blocoUm; j < limiteJ; j++)
         {
 
-            int delta = 0;
-
-            // Independente da situação, sempre ocorrerá isso 
-            delta -= v[fimBlocoUm][depoisBlocoUm];
+            int delta = deltaBloco;
 
             antesBlocoDois = sequencia[j - 1];
             inicioBlocoDois = sequencia[j];
             fimBlocoDois = sequencia[j + blocoDois - 1];
+            depoisBlocoDois = sequencia[j + blocoDois];
 
-            // Se i não estiver no coneço, ele terá um vértice antes dele
-            if (i != 0)
-            {
-                int antesBlocoUm = sequencia[i - 1];
-                delta -= v[antesBlocoUm][inicioBlocoUm];
-                delta += v[antesBlocoUm][inicioBlocoDois];
-            }
+            // i terá um vértice antes dele
+            delta += v[antesBlocoUm][inicioBlocoDois];
+
+            // j terá um vértice depois dele
+            delta -= v[fimBlocoDois][depoisBlocoDois];
+            delta += v[fimBlocoUm][depoisBlocoDois];
 
             // Se blocoUm e blocoDois não são adjacentes
             if (i + blocoUm != j)
@@ -89,15 +77,6 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
             else
             {
                 delta += v[fimBlocoDois][inicioBlocoUm];
-            }
-
-            // Se j não for o ultimo, ele terá um vértice depois dele
-            if (j + blocoDois != tamanho)
-            {
-                int depoisBlocoDois = sequencia[j + blocoDois];
-
-                delta -= v[fimBlocoDois][depoisBlocoDois];
-                delta += v[fimBlocoUm][depoisBlocoDois];
             }
 
             // Verificando se encontrou uma situação en que vai reduzir o valor da solução
@@ -129,21 +108,35 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
 void swap(vector<int> &sequencia, int i, int j, int blocoUm, int blocoDois)
 {
 
-    // Motivo de usar dois for: o tamanho dos blocos podem ser diferentes
+    int elementoAtual = 0;
 
-    // Movendo os elementos do blocoDois
-    for (int k = 0; k < blocoDois; k++)
+    // Caso o blocoUm e o blocoDois sejam iguais
+    if (blocoUm == blocoDois)
     {
-        int elementoAtual = sequencia[j + k];
-        sequencia.erase(sequencia.begin() + j + k);
-        sequencia.insert(sequencia.begin() + i + k, elementoAtual);
+        for (int k = 0; k < blocoUm; k++)
+        {
+            elementoAtual = sequencia[i + k];
+            sequencia[i + k] = sequencia[j + k];
+            sequencia[j + k] = elementoAtual;
+        }
     }
 
-    // Movendo os elementos do blocoUm
-    for (int k = 0; k < blocoUm; k++)
+    else
     {
-        int elementoAtual = sequencia[i + blocoDois];
-        sequencia.erase(sequencia.begin() + i + blocoDois);
-        sequencia.insert(sequencia.begin() + j + blocoDois - 1, elementoAtual);
+        // Movendo os elementos do blocoDois
+        for (int k = 0; k < blocoDois; k++)
+        {
+            elementoAtual = sequencia[j + k];
+            sequencia.erase(sequencia.begin() + j + k);
+            sequencia.insert(sequencia.begin() + i + k, elementoAtual);
+        }
+
+        // Movendo os elementos do blocoUm
+        for (int k = 0; k < blocoUm; k++)
+        {
+            elementoAtual = sequencia[i + blocoDois];
+            sequencia.erase(sequencia.begin() + i + blocoDois);
+            sequencia.insert(sequencia.begin() + j + blocoDois - 1, elementoAtual);
+        }
     }
 }

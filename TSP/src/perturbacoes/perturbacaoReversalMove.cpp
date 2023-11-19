@@ -3,27 +3,31 @@
 void Solucao::perturbacaoReversalMove(Problema *p, int bloco)
 {
     // * Informaces sobre a solucao
-    int tamanho = this->getSequencia().size();
     vector<int> &sequencia = this->getSequencia();
+    int tamanho = sequencia.size();
 
     // * Informacoes sobre o problema
     vector<vector<int>> &v = p->getMatrizValores();
 
+    srand(time(NULL));
+
     // Sorteando as posições do bloco e onde ele entrará
-    int posicaoBloco = rand() % (tamanho - bloco);
-    int posicaoEntrada = rand() % (tamanho + 1);
+    int posicaoBloco = rand() % (tamanho - bloco - 1) + 1;
+    int posicaoEntrada = rand() % (tamanho - 1) + 1;
 
     // Garantindo que a posição de entrada do bloco não seja entre as posições dos elementos do bloco
     while (posicaoEntrada >= posicaoBloco && posicaoEntrada <= posicaoBloco + bloco)
     {
-        posicaoEntrada = rand() % (tamanho + 1);
+        posicaoEntrada = rand() % (tamanho - 1) + 1;
     }
 
     int inicioBloco = sequencia[posicaoBloco];
+    int antesBloco = sequencia[posicaoBloco - 1];
     int fimBloco = sequencia[posicaoBloco + bloco - 1];
     int depoisBloco = sequencia[posicaoBloco + bloco];
 
     int entrada = sequencia[posicaoEntrada];
+    int antesEntrada = sequencia[posicaoEntrada - 1];
 
     int delta = 0;
 
@@ -34,59 +38,15 @@ void Solucao::perturbacaoReversalMove(Problema *p, int bloco)
         delta += v[sequencia[posicaoBloco + bloco - 1 - k]][sequencia[posicaoBloco + bloco - 2 - k]];
     }
 
-    // # Se posicaoBloco estiver no coneço,
-    // # Então, ele SÓ terá um vértice depois dele
-    if (posicaoBloco == 0)
-    {
-        delta -= v[fimBloco][depoisBloco];
-    }
+    delta -= v[antesBloco][inicioBloco];
+    delta -= v[fimBloco][depoisBloco];
 
-    // # Se posicaoBloco estiver no fim,
-    // # Então, ele SÓ terá um vértice antes dele
-    if (posicaoBloco == tamanho - bloco)
-    {
-        int antesBloco = sequencia[posicaoBloco - 1];
-        delta -= v[antesBloco][inicioBloco];
-    }
+    delta += v[antesBloco][depoisBloco];
 
-    // # Se posicaoBloco não estiver no começo,
-    // # Se posicaoBloco não estiver no fim,
-    // # Então, ele terá um vértice antes e depois dele
-    if (posicaoBloco != 0 && posicaoBloco != tamanho - bloco)
-    {
-        int antesBloco = sequencia[posicaoBloco - 1];
-        delta -= v[antesBloco][inicioBloco];
-        delta -= v[fimBloco][depoisBloco];
-        delta += v[antesBloco][depoisBloco];
-    }
+    delta -= v[antesEntrada][entrada];
+    delta += v[antesEntrada][fimBloco];
 
-    // & Se posicaoEntrada não estiver no começo,
-    // & Então, a inserção será antes dele
-    if (posicaoEntrada == 0)
-    {
-        delta += v[inicioBloco][entrada];
-    }
-
-    // & Se posicaoEntrada não estiver no começo,
-    // & Se posicaoEntrada não estiver no fim,
-    // & Então, a inserção será antes dele
-    // & E posicaoEntrada terá um vértice antes dele
-    if (posicaoEntrada != 0 && posicaoEntrada != tamanho)
-    {
-        int antesEntrada = sequencia[posicaoEntrada - 1];
-        delta -= v[antesEntrada][entrada];
-        delta += v[antesEntrada][fimBloco];
-
-        delta += v[inicioBloco][entrada];
-    }
-
-    // & Se posicaoEntrada for o último,
-    // & Então, a inserção será depois dele
-    if (posicaoEntrada == tamanho)
-    {
-        int ultimaPosicao = sequencia[posicaoEntrada - 1];
-        delta += v[ultimaPosicao][fimBloco];
-    }
+    delta += v[inicioBloco][entrada];
 
     // Atualizando o valor da solução
     this->setValor(this->getValor() + delta);

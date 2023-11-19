@@ -1,6 +1,6 @@
 #include "../solucao/solucao.hpp"
 
-// Duas arestas não adjacentes da solução são removidas e o segmento entre elas é reinserido de maneira 
+// Duas arestas não adjacentes da solução são removidas e o segmento entre elas é reinserido de maneira
 // invertida, adicionando-se duas novas arestas para reconstruir a solução
 bool Solucao::bestImprovement2Opt(Problema *p)
 {
@@ -72,7 +72,6 @@ bool Solucao::bestImprovement2Opt(Problema *p)
                 bestJ = j;
             }
         }
-
     }
 
     // Se encontrou a tal situação
@@ -106,5 +105,4 @@ void inverterSegmento(vector<int> &sequencia, int i, int j)
         sequencia[preCalculo1 + k] = sequencia[preCalculo2 - k];
         sequencia[preCalculo2 - k] = aux;
     }
-
 }

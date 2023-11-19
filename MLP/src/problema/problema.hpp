@@ -17,13 +17,13 @@ public:
     Problema(Data *data);
     ~Problema();
 
-    // Getters
-    int getQuantidadePontos();
-    vector<vector<int>> &getMatrizValores();
-
     // Setters
     void setMatrizValores(vector<vector<int>> &matriz);
     void setQuantidadePontos(int valor);
+
+    // Getters
+    int getQuantidadePontos();
+    vector<vector<int>> &getMatrizValores();
 
     // Métodos
     void mostrarMatriz();

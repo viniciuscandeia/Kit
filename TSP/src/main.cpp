@@ -9,7 +9,7 @@ int main()
 
 	// Criando o objeto da instância
 	// Data data = Data(argc, argv[1]);
-	Data *data = new Data(2, "instances/gr17.tsp");
+	Data *data = new Data(2, "instances/ulysses22.tsp");
 	data->read();
 
 	// Criando o objeto do Problema
@@ -17,15 +17,15 @@ int main()
 	// p->mostrarMatriz();
 
 	// Criando o objeto da Solucao
-	Solucao *s = new Solucao();
-	s->algoritmoGuloso(p);
+	// Solucao *s = new Solucao();
+	// s->algoritmoGuloso(p);
 
 	// | Etapa 2
 
-	// testesIndividuais(p);
-	// testesBuscasLocais(p);
-	// testesPerturbacoes(p);
-	// testesMetaheuristicas(p);
+	testesIndividuais(p);
+	testesBuscasLocais(p);
+	testesPerturbacoes(p);
+	testesMetaheuristicas(p);
 
 	// | Etapa 3
 

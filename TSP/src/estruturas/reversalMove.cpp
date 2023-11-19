@@ -10,10 +10,15 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
     int bestJ = 0;
 
     int inicioBloco = 0;
+    int antesBloco = 0;
     int fimBloco = 0;
     int depoisBloco = 0;
 
     int entrada = 0;
+    int antesEntrada = 0;
+
+    int deltaBloco = 0;
+    int delta = 0;
 
     // * Informaces sobre a solucao
     int tamanho = this->getSequencia().size();
@@ -22,13 +27,13 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
     // * Informacoes sobre o problema
     vector<vector<int>> &v = p->getMatrizValores();
 
-    int limiteI = tamanho - bloco + 1;
+    int limiteI = tamanho - bloco;
 
     // | Para i
-    for (int i = 0; i < limiteI; i++)
+    for (int i = 1; i < limiteI; i++)
     {
 
-        int deltaBloco = 0;
+        deltaBloco = 0;
 
         // Refazendo as conexões do segmento invertido
         for (int k = 0; k < bloco - 1; k++)
@@ -37,46 +42,17 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
             deltaBloco += v[sequencia[i + bloco - 1 - k]][sequencia[i + bloco - 2 - k]];
         }
 
+        antesBloco = sequencia[i - 1];
         inicioBloco = sequencia[i];
-
-        // Se bloco = 2 -> fimBloco = inicioBloco + 1
-        // Se bloco = 3 -> fimBloco = inicioBloco + 2
-
         fimBloco = sequencia[i + bloco - 1];
-
-        // Se bloco = 2 -> depoisBloco = inicioBloco + 2
-        // Se bloco = 3 -> depoisBloco = inicioBloco + 3
-
         depoisBloco = sequencia[i + bloco];
 
-        // # Se i estiver no coneço,
-        // # Então, ele SÓ terá um vértice depois dele
-        if (i == 0)
-        {
-            deltaBloco -= v[fimBloco][depoisBloco];
-        }
-
-        // # Se i estiver no fim,
-        // # Então, ele SÓ terá um vértice antes dele
-        if (i == tamanho - bloco)
-        {
-            int antesBloco = sequencia[i - 1];
-            deltaBloco -= v[antesBloco][inicioBloco];
-        }
-
-        // # Se i não estiver no começo,
-        // # Se i não estiver no fim,
-        // # Então, ele terá um vértice antes e depois dele
-        if (i != 0 && i != tamanho - bloco)
-        {
-            int antesBloco = sequencia[i - 1];
-            deltaBloco -= v[antesBloco][inicioBloco];
-            deltaBloco -= v[fimBloco][depoisBloco];
-            deltaBloco += v[antesBloco][depoisBloco];
-        }
+        deltaBloco -= v[antesBloco][inicioBloco];
+        deltaBloco -= v[fimBloco][depoisBloco];
+        deltaBloco += v[antesBloco][depoisBloco];
 
         // | Para j
-        for (int j = 0; j <= tamanho; j++)
+        for (int j = 1; j < tamanho; j++)
         {
 
             // Padrão: inserir no lado esquerdo de j.
@@ -90,45 +66,15 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
                 continue;
             }
 
-            // & Se j for tamanho, o bloco será inserido após o último elemento
-            if (j == tamanho)
-            {
-                entrada = sequencia[j - 1];
-            }
-            else
-            {
-                entrada = sequencia[j];
-            }
+            delta = deltaBloco;
 
-            int delta = deltaBloco;
+            entrada = sequencia[j];
+            antesEntrada = sequencia[j - 1];
 
-            // & Se j não estiver no começo,
-            // & Então, a inserção será antes dele
-            if (j == 0)
-            {
-                delta += v[inicioBloco][entrada];
-            }
+            delta -= v[antesEntrada][entrada];
+            delta += v[antesEntrada][fimBloco];
 
-            // & Se j não estiver no começo,
-            // & Se j não estiver no fim,
-            // & Então, a inserção será antes dele
-            // & E j terá um vértice antes dele
-            if (j != 0 && j != tamanho)
-            {
-                int antesEntrada = sequencia[j - 1];
-                delta -= v[antesEntrada][entrada];
-                delta += v[antesEntrada][fimBloco];
-
-                delta += v[inicioBloco][entrada];
-            }
-
-            // & Se j for o último,
-            // & Então, a inserção será depois dele
-            if (j == tamanho)
-            {
-                int ultimaPosicao = sequencia[j - 1];
-                delta += v[ultimaPosicao][fimBloco];
-            }
+            delta += v[inicioBloco][entrada];
 
             // Verificando se encontrou uma situação en que vai reduzir o valor da solução
             if (delta < bestDelta)

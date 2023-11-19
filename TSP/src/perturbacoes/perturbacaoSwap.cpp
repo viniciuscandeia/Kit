@@ -10,32 +10,51 @@ void Solucao::perturbacaoSwap(Problema *p, int blocoUm, int blocoDois)
     // * Informacoes sobre o problema
     vector<vector<int>> &v = p->getMatrizValores();
 
-    int limiteJ = tamanho + 1 - blocoDois;
+    int limiteJ = tamanho - blocoDois - 1;
     int limiteI = limiteJ - blocoUm;
 
+    srand(time(NULL));
+
     // Sorteando quais as posições dos blocos que serão trocados
-    int posicaoBlocoUm = rand() % (limiteI);
-    int posicaoBlocoDois = (rand() % (limiteJ - posicaoBlocoUm - blocoUm)) + posicaoBlocoUm + blocoUm;
+    int posicaoBlocoUm = rand() % (limiteI) + 1;
+
+    int conta = limiteJ - posicaoBlocoUm - blocoUm;
+    int posicaoBlocoDois = 0;
+    if (conta == 0)
+    {
+        posicaoBlocoDois = posicaoBlocoUm + blocoUm;
+    }
+    else
+    {
+        posicaoBlocoDois = (rand() % (conta)) + posicaoBlocoUm + blocoUm;
+    }
 
     int inicioBlocoUm = sequencia[posicaoBlocoUm];
+    int antesBlocoUm = sequencia[posicaoBlocoUm - 1];
     int fimBlocoUm = sequencia[posicaoBlocoUm + blocoUm - 1];
     int depoisBlocoUm = sequencia[posicaoBlocoUm + blocoUm];
 
     int inicioBlocoDois = sequencia[posicaoBlocoDois];
-    int fimBlocoDois = sequencia[posicaoBlocoDois + blocoDois - 1];
     int antesBlocoDois = sequencia[posicaoBlocoDois - 1];
+    int fimBlocoDois = sequencia[posicaoBlocoDois + blocoDois - 1];
+    int depoisBlocoDois = sequencia[posicaoBlocoDois + blocoDois];
 
     int delta = 0;
 
+    // Independente da situação, sempre ocorrerá isso
     delta -= v[fimBlocoUm][depoisBlocoUm];
 
-    if (posicaoBlocoUm != 0)
-    {
-        int antesBlocoUm = sequencia[posicaoBlocoUm - 1];
-        delta -= v[antesBlocoUm][inicioBlocoUm];
-        delta += v[antesBlocoUm][inicioBlocoDois];
-    }
+    // i terá um vértice antes dele
+    delta -= v[antesBlocoUm][inicioBlocoUm];
 
+    // i terá um vértice antes dele
+    delta += v[antesBlocoUm][inicioBlocoDois];
+
+    // j terá um vértice depois dele
+    delta -= v[fimBlocoDois][depoisBlocoDois];
+    delta += v[fimBlocoUm][depoisBlocoDois];
+
+    // Se blocoUm e blocoDois não são adjacentes
     if (posicaoBlocoUm + blocoUm != posicaoBlocoDois)
     {
         delta += v[fimBlocoDois][depoisBlocoUm];
@@ -43,17 +62,11 @@ void Solucao::perturbacaoSwap(Problema *p, int blocoUm, int blocoDois)
         delta -= v[antesBlocoDois][inicioBlocoDois];
         delta += v[antesBlocoDois][inicioBlocoUm];
     }
+
+    // Se blocoUm e blocoDois são adjacentes
     else
     {
         delta += v[fimBlocoDois][inicioBlocoUm];
-    }
-
-    if (posicaoBlocoDois + blocoDois != tamanho)
-    {
-        int depoisBlocoDois = sequencia[posicaoBlocoDois + blocoDois];
-
-        delta -= v[fimBlocoDois][depoisBlocoDois];
-        delta += v[fimBlocoUm][depoisBlocoDois];
     }
 
     // Trocando de posições i e j
@@ -61,5 +74,4 @@ void Solucao::perturbacaoSwap(Problema *p, int blocoUm, int blocoDois)
 
     // Atualizando o valor da solução
     this->setValor(this->getValor() + delta);
-
 }

@@ -63,6 +63,16 @@ void Solucao::algoritmoGuloso(Problema *p)
         custoRota += bestDelta;
     }
 
+    // Pegando o último ponto que foi inserido na rota
+    tamanhoRota = rota.size();
+    ultimoRota = rota[tamanhoRota - 1];
+
+    // Voltando para a origem
+    custoRota += m[ultimoRota][0];
+
+    // Adiciona na rota o ponto 0
+    rota.push_back(0);
+
     // Atualizando a rota e o valor da solução
     this->setSequencia(rota);
     this->setValor(custoRota);

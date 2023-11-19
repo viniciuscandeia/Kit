@@ -26,6 +26,17 @@ Problema::~Problema()
 {
 }
 
+// Setters
+void Problema::setQuantidadePontos(int valor)
+{
+    quantidadeDePontos = valor;
+}
+
+void Problema::setMatrizValores(vector<vector<int>> &matriz)
+{
+    matrizValores = matriz;
+}
+
 // Getters
 int Problema::getQuantidadePontos()
 {

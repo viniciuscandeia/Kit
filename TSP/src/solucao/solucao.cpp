@@ -53,8 +53,8 @@ void Solucao::calcularValor(Problema *p)
 {
     int valor = 0;
 
-    int tamanho = sequenciaDaSolucao.size();
     vector<int> &rota = this->getSequencia();
+    int tamanho = rota.size();
 
     for (int i = 0; i < tamanho - 1; i++)
     {
@@ -81,8 +81,33 @@ void testesIndividuais(Problema *p)
 
     cout << " ----------- ESTRUTURAS DE VIZINHANÇA ----------- " << endl;
 
+    // vector<int> vetor = {0};
+    // vector<int> vetor = {0, 11, 6, 3, 9, 2, 5, 0};
+    // vector<int> frequencia(17, 0);
+    // frequencia[0] = 1;
+
+    // srand(time(NULL));
+
+    // while (vetor.size() < 7)
+    // {
+    //     int sorteio = rand() % 17;
+
+    //     if (frequencia[sorteio] == 0)
+    //     {
+    //         vetor.push_back(sorteio);
+    //         frequencia[sorteio] = 1;
+    //     }
+    // }
+    // vetor.push_back(0);
+
     t->algoritmoGuloso(p);
+
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
+
     cout << "ORIGINAL         : " << t->getValor() << endl;
+
+    // t->mostrarSequencia();
 
     t->bestImprovementSwap(p, 1, 1);
     cout << "1 1 SWAP         : " << t->getValor();
@@ -92,10 +117,13 @@ void testesIndividuais(Problema *p)
     valorCorreto = t->getValor();
     validarValores(valorEncontrado, valorCorreto);
 
-    t->mostrarSequencia();
+    // t->mostrarSequencia();
 
     t->limparSolucao();
     t->algoritmoGuloso(p);
+
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
 
     t->bestImprovementSwap(p, 2, 1);
     cout << "2 1 SWAP         : " << t->getValor();
@@ -105,8 +133,13 @@ void testesIndividuais(Problema *p)
     valorCorreto = t->getValor();
     validarValores(valorEncontrado, valorCorreto);
 
+    // t->mostrarSequencia();
+
     t->limparSolucao();
     t->algoritmoGuloso(p);
+
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
 
     t->bestImprovementSwap(p, 1, 2);
     cout << "1 2 SWAP         : " << t->getValor();
@@ -116,8 +149,13 @@ void testesIndividuais(Problema *p)
     valorCorreto = t->getValor();
     validarValores(valorEncontrado, valorCorreto);
 
+    // t->mostrarSequencia();
+
     t->limparSolucao();
     t->algoritmoGuloso(p);
+
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
 
     t->bestImprovementSwap(p, 2, 2);
     cout << "2 2 SWAP         : " << t->getValor();
@@ -127,8 +165,13 @@ void testesIndividuais(Problema *p)
     valorCorreto = t->getValor();
     validarValores(valorEncontrado, valorCorreto);
 
+    // t->mostrarSequencia();
+
     t->limparSolucao();
     t->algoritmoGuloso(p);
+
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
 
     t->bestImprovement2Opt(p);
     cout << "2-OPT            : " << t->getValor();
@@ -141,6 +184,9 @@ void testesIndividuais(Problema *p)
     t->limparSolucao();
     t->algoritmoGuloso(p);
 
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
+
     t->bestImprovementReinsertion(p, 1);
     cout << "1 REINSERTION    : " << t->getValor();
     valorEncontrado = t->getValor();
@@ -151,6 +197,9 @@ void testesIndividuais(Problema *p)
 
     t->limparSolucao();
     t->algoritmoGuloso(p);
+
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
 
     t->bestImprovementReinsertion(p, 2);
     cout << "2 REINSERTION    : " << t->getValor();
@@ -163,6 +212,9 @@ void testesIndividuais(Problema *p)
     t->limparSolucao();
     t->algoritmoGuloso(p);
 
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
+
     t->bestImprovementReinsertion(p, 3);
     cout << "3 REINSERTION    : " << t->getValor();
     valorEncontrado = t->getValor();
@@ -174,6 +226,9 @@ void testesIndividuais(Problema *p)
     t->limparSolucao();
     t->algoritmoGuloso(p);
 
+    // t->setSequencia(vetor);
+    // t->calcularValor(p);
+
     t->bestImprovementReversalMove(p, 2);
     cout << "2 REVERSAL MOVE  : " << t->getValor();
     valorEncontrado = t->getValor();
@@ -181,6 +236,8 @@ void testesIndividuais(Problema *p)
     cout << " (" << t->getValor() << ") ";
     valorCorreto = t->getValor();
     validarValores(valorEncontrado, valorCorreto);
+
+    // t->mostrarSequencia();
 
     t->limparSolucao();
     t->algoritmoGuloso(p);
@@ -194,7 +251,6 @@ void testesIndividuais(Problema *p)
     validarValores(valorEncontrado, valorCorreto);
 
     t->limparSolucao();
-    t->algoritmoGuloso(p);
 
     cout << endl;
 }
@@ -284,6 +340,39 @@ void testesPerturbacoes(Problema *p)
 
     t->perturbacaoSwap(p, 2, 2);
     cout << "2 2 PERT SWAP    : " << t->getValor();
+    valorEncontrado = t->getValor();
+    t->calcularValor(p);
+    cout << " (" << t->getValor() << ") ";
+    valorCorreto = t->getValor();
+    validarValores(valorEncontrado, valorCorreto);
+
+    t->limparSolucao();
+    t->algoritmoGuloso(p);
+
+    t->perturbacaoReinsertion(p, 1);
+    cout << "1 PERT REINS     : " << t->getValor();
+    valorEncontrado = t->getValor();
+    t->calcularValor(p);
+    cout << " (" << t->getValor() << ") ";
+    valorCorreto = t->getValor();
+    validarValores(valorEncontrado, valorCorreto);
+
+    t->limparSolucao();
+    t->algoritmoGuloso(p);
+
+    t->perturbacaoReinsertion(p, 2);
+    cout << "2 PERT REINS     : " << t->getValor();
+    valorEncontrado = t->getValor();
+    t->calcularValor(p);
+    cout << " (" << t->getValor() << ") ";
+    valorCorreto = t->getValor();
+    validarValores(valorEncontrado, valorCorreto);
+
+    t->limparSolucao();
+    t->algoritmoGuloso(p);
+
+    t->perturbacaoReinsertion(p, 3);
+    cout << "3 PERT REINS     : " << t->getValor();
     valorEncontrado = t->getValor();
     t->calcularValor(p);
     cout << " (" << t->getValor() << ") ";
@@ -551,7 +640,7 @@ void gerenciarProducaoArquivos()
                 if (arquivoQueue.empty())
                 {
                     // Fila vazia, sair do loop
-                    break; 
+                    break;
                 }
 
                 // Pega o arquivo que está na frente da fila
