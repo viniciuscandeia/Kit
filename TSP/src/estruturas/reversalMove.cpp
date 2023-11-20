@@ -20,6 +20,10 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
     int deltaBloco = 0;
     int delta = 0;
 
+    int preCalculo1 = 0;
+    int preCalculo2 = 0;
+    int preCalculo3 = 0;
+
     // * Informaces sobre a solucao
     int tamanho = this->getSequencia().size();
     vector<int> &sequencia = this->getSequencia();
@@ -35,11 +39,16 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
 
         deltaBloco = 0;
 
+        // Realizando alguns cálculos para evitar retrabalho dentro do for
+        preCalculo1 = i + 1;
+        preCalculo2 = i + bloco - 1;
+        preCalculo3 = i + bloco - 2;
+
         // Refazendo as conexões do segmento invertido
         for (int k = 0; k < bloco - 1; k++)
         {
-            deltaBloco -= v[sequencia[i + k]][sequencia[i + 1 + k]];
-            deltaBloco += v[sequencia[i + bloco - 1 - k]][sequencia[i + bloco - 2 - k]];
+            deltaBloco -= v[sequencia[i + k]][sequencia[preCalculo1 + k]];
+            deltaBloco += v[sequencia[preCalculo2 - k]][sequencia[preCalculo3 - k]];
         }
 
         antesBloco = sequencia[i - 1];
@@ -47,9 +56,7 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
         fimBloco = sequencia[i + bloco - 1];
         depoisBloco = sequencia[i + bloco];
 
-        deltaBloco -= v[antesBloco][inicioBloco];
-        deltaBloco -= v[fimBloco][depoisBloco];
-        deltaBloco += v[antesBloco][depoisBloco];
+        deltaBloco = -v[antesBloco][inicioBloco] - v[fimBloco][depoisBloco] + v[antesBloco][depoisBloco];
 
         // | Para j
         for (int j = 1; j < tamanho; j++)
@@ -66,15 +73,10 @@ bool Solucao::bestImprovementReversalMove(Problema *p, int bloco)
                 continue;
             }
 
-            delta = deltaBloco;
-
             entrada = sequencia[j];
             antesEntrada = sequencia[j - 1];
 
-            delta -= v[antesEntrada][entrada];
-            delta += v[antesEntrada][fimBloco];
-
-            delta += v[inicioBloco][entrada];
+            delta = deltaBloco - v[antesEntrada][entrada] + v[antesEntrada][fimBloco] + v[inicioBloco][entrada];
 
             // Verificando se encontrou uma situação en que vai reduzir o valor da solução
             if (delta < bestDelta)
@@ -115,6 +117,8 @@ void reinserirBlocoInvetido(vector<int> &sequencia, int i, int j, int bloco)
 
     int casoAntes = 0;
 
+    int preCalculo1 = i + bloco - 1;
+
     for (int k = 0; k < bloco; k++)
     {
 
@@ -124,10 +128,10 @@ void reinserirBlocoInvetido(vector<int> &sequencia, int i, int j, int bloco)
             casoAntes = k;
         }
 
-        int elementoAtual = sequencia[i + bloco - 1 - k + casoAntes];
+        int elementoAtual = sequencia[preCalculo1 - k + casoAntes];
 
         // Apagando os elementos do bloco
-        sequencia.erase(sequencia.begin() + i + bloco - 1 - k + casoAntes);
+        sequencia.erase(sequencia.begin() + preCalculo1 - k + casoAntes);
 
         // Inserindo os elementos do bloco nas novas posicoes deles
         if (j != tamanho)

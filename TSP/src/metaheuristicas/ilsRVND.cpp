@@ -20,6 +20,8 @@ void Solucao::ilsRVND(Problema *p, int maxIter, int maxIterILS)
         maxIterILS /= 2;
     }
 
+    srand(time(NULL));
+
     for (int i = 0; i < maxIter; i++)
     {
 

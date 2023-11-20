@@ -18,6 +18,9 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
     int fimBlocoDois = 0;
     int depoisBlocoDois = 0;
 
+    int deltaBloco = 0;
+    int delta = 0;
+
     // * Informaces sobre a solucao
     vector<int> &sequencia = this->getSequencia();
     int tamanho = sequencia.size();
@@ -38,19 +41,12 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
         fimBlocoUm = sequencia[i + blocoUm - 1];
         depoisBlocoUm = sequencia[i + blocoUm];
 
-        int deltaBloco = 0;
-
         // Independente da situação, sempre ocorrerá isso
-        deltaBloco -= v[fimBlocoUm][depoisBlocoUm];
-
-        // i terá um vértice antes dele
-        deltaBloco -= v[antesBlocoUm][inicioBlocoUm];
+        deltaBloco = -v[fimBlocoUm][depoisBlocoUm] - v[antesBlocoUm][inicioBlocoUm];
 
         // | Para j
         for (int j = i + blocoUm; j < limiteJ; j++)
         {
-
-            int delta = deltaBloco;
 
             antesBlocoDois = sequencia[j - 1];
             inicioBlocoDois = sequencia[j];
@@ -58,19 +54,13 @@ bool Solucao::bestImprovementSwap(Problema *p, int blocoUm, int blocoDois)
             depoisBlocoDois = sequencia[j + blocoDois];
 
             // i terá um vértice antes dele
-            delta += v[antesBlocoUm][inicioBlocoDois];
-
             // j terá um vértice depois dele
-            delta -= v[fimBlocoDois][depoisBlocoDois];
-            delta += v[fimBlocoUm][depoisBlocoDois];
+            delta = deltaBloco + v[antesBlocoUm][inicioBlocoDois] - v[fimBlocoDois][depoisBlocoDois] + v[fimBlocoUm][depoisBlocoDois];
 
             // Se blocoUm e blocoDois não são adjacentes
             if (i + blocoUm != j)
             {
-                delta += v[fimBlocoDois][depoisBlocoUm];
-
-                delta -= v[antesBlocoDois][inicioBlocoDois];
-                delta += v[antesBlocoDois][inicioBlocoUm];
+                delta += v[fimBlocoDois][depoisBlocoUm] - v[antesBlocoDois][inicioBlocoDois] + v[antesBlocoDois][inicioBlocoUm];
             }
 
             // Se blocoUm e blocoDois são adjacentes

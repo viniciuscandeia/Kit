@@ -16,6 +16,15 @@ bool Solucao::bestImprovement2Opt(Problema *p)
     int segundo = 0;
     int antesSegundo = 0;
 
+    int delta = 0;
+
+    int quantidadeTrocas = 0;
+
+    int preCalculo1 = 0;
+    int preCalculo2 = 0;
+    int preCalculo3 = 0;
+    int preCalculo4 = 0;
+
     // * Informaces sobre a solucao
     vector<int> &sequencia = this->getSequencia();
     int tamanho = sequencia.size();
@@ -39,19 +48,16 @@ bool Solucao::bestImprovement2Opt(Problema *p)
             segundo = sequencia[j];
             antesSegundo = sequencia[j - 1];
 
-            int delta = 0;
-
+            delta = -v[primeiro][depoisPrimeiro] - v[antesSegundo][segundo];
             // Removendo as arestas
-            delta -= v[primeiro][depoisPrimeiro];
-            delta -= v[antesSegundo][segundo];
 
             // Realizando alguns cálculos para evitar retrabalho dentro do for
-            int quantidadeTrocas = j - i - 2;
+            quantidadeTrocas = j - i - 2;
 
-            int preCalculo1 = i + 1;
-            int preCalculo2 = i + 2;
-            int preCalculo3 = j - 1;
-            int preCalculo4 = j - 2;
+            preCalculo1 = i + 1;
+            preCalculo2 = i + 2;
+            preCalculo3 = j - 1;
+            preCalculo4 = j - 2;
 
             // Refazendo as conexões do segmento invertido
             for (int k = 0; k < quantidadeTrocas; k++)
@@ -61,8 +67,7 @@ bool Solucao::bestImprovement2Opt(Problema *p)
             }
 
             // Adicionando as arestas
-            delta += v[primeiro][antesSegundo];
-            delta += v[depoisPrimeiro][segundo];
+            delta += v[primeiro][antesSegundo] + v[depoisPrimeiro][segundo];
 
             // Verificando se encontrou uma situação en que vai reduzir o valor da solução
             if (delta < bestDelta)

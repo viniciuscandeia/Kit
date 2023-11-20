@@ -482,7 +482,7 @@ void criarArquivo(string nomeArquivo)
 
     ofstream arquivo(arquivoSaida);
 
-    int repeticoes = 1;
+    int repeticoes = 10;
 
     // Escrevendo o nome da instância no arquivo de saída
     arquivo << nomeArquivo << " ";

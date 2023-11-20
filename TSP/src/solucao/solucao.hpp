@@ -11,7 +11,7 @@
 #include <queue>
 
 #define QUANT_PERTURBACOES 9
-#define QUANT_ESTRUTURAS 10
+#define QUANT_ESTRUTURAS 19
 #define INFINITE 9999999
 
 using namespace std;
@@ -74,7 +74,6 @@ public:
     void perturbacaoSwap(Problema *p, int blocoUm, int blocoDois);
     void perturbacaoReinsertion(Problema *p, int bloco);
     void perturbacaoReversalMove(Problema *p, int bloco);
-    // perturbacao2Opt
 
     // Metaheurísticas
     void ilsVND(Problema *p, int maxIter, int maxIterILS);

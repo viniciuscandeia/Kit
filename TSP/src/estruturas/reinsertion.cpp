@@ -39,12 +39,7 @@ bool Solucao::bestImprovementReinsertion(Problema *p, int bloco)
         fimBloco = sequencia[i + bloco - 1];
         depoisBloco = sequencia[i + bloco];
 
-        deltaBloco = 0;
-
-        deltaBloco -= v[antesBloco][inicioBloco];
-        deltaBloco -= v[fimBloco][depoisBloco];
-
-        deltaBloco += v[antesBloco][depoisBloco];
+        deltaBloco = -v[antesBloco][inicioBloco] - v[fimBloco][depoisBloco] + v[antesBloco][depoisBloco];
 
         // | Para j
         for (int j = 1; j < tamanho; j++)
@@ -61,15 +56,10 @@ bool Solucao::bestImprovementReinsertion(Problema *p, int bloco)
                 continue;
             }
 
-            delta = deltaBloco;
-
             antesEntrada = sequencia[j - 1];
             entrada = sequencia[j];
 
-            delta -= v[antesEntrada][entrada];
-            delta += v[antesEntrada][inicioBloco];
-
-            delta += v[fimBloco][entrada];
+            delta = deltaBloco - v[antesEntrada][entrada] + v[antesEntrada][inicioBloco] + v[fimBloco][entrada];
 
             // Verificando se encontrou uma situação en que vai reduzir o valor da solução
             if (delta < bestDelta)

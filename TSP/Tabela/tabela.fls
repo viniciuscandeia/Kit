@@ -1,8 +1,8 @@
-PWD /Users/viniciuscandeia/Desktop/otimizacao/Kit/Tabela
+PWD /Users/viniciuscandeia/Desktop/otimizacao/Kit/TSP/Tabela
 INPUT /usr/local/texlive/2023/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/viniciuscandeia/Desktop/otimizacao/Kit/Tabela/tabela.tex
+INPUT /Users/viniciuscandeia/Desktop/otimizacao/Kit/TSP/Tabela/tabela.tex
 OUTPUT tabela.log
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls

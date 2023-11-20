@@ -10,6 +10,8 @@ bool Solucao::rvnd(Problema *p)
     bool melhoria = false;
     bool melhorou = false;
 
+    srand(time(NULL));
+
     // Vetor não vazio
     while (!estruturas.empty())
     {

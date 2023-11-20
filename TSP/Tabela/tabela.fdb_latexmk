@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1700147764 "/Users/viniciuscandeia/Desktop/otimizacao/Kit/Tabela/tabela.tex" "tabela.pdf" "tabela" 1700147764 0
-  "/Users/viniciuscandeia/Desktop/otimizacao/Kit/Tabela/tabela.tex" 1700147763 3331 1853e3ba714c8635f816af4ccb920426 ""
+["pdflatex"] 1700474936 "/Users/viniciuscandeia/Desktop/otimizacao/Kit/TSP/Tabela/tabela.tex" "tabela.pdf" "tabela" 1700474937 0
+  "/Users/viniciuscandeia/Desktop/otimizacao/Kit/TSP/Tabela/tabela.tex" 1700474936 3247 0003facdc2659e14af6d4e9a0a053360 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -35,8 +35,8 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1698890265 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1698890167 7883457 d5891b26863f8f1c3438b7f374278800 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "tabela.aux" 1700147764 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
-  "tabela.tex" 1700147763 3331 1853e3ba714c8635f816af4ccb920426 ""
+  "tabela.aux" 1700474937 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "tabela.tex" 1700474936 3247 0003facdc2659e14af6d4e9a0a053360 ""
   (generated)
   "tabela.aux"
   "tabela.log"
